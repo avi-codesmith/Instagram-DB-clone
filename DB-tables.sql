@@ -45,5 +45,20 @@ CREATE TABLE follows(
   FOREIGN KEY (followee_id) REFERENCES users(id),
   PRIMARY KEY (follower_id, followee_id)
 -- UNIQUE(user_id, photo_id)we can use but 
--- then we need to add NULl as in ... 30 and 31
+-- then we need to add NULL as in ... 30 and 31
+);
+
+CREATE TABLE tags (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  tag_name VARCHAR(50) UNIQUE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP() -- OR NOW()
+);
+
+CREATE TABLE photo_tags(
+  tag_id INT,
+  photo_id INT,
+  FOREIGN KEY (tag_id) REFERENCES tags(id),
+  FOREIGN KEY (photo_id) REFERENCES photos(id),
+  PRIMARY KEY (tag_id, photo_id)
 )
+
