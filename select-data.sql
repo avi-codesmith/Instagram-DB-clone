@@ -41,3 +41,12 @@ SELECT ROUND((SELECT COUNT(*) FROM photos) / (SELECT COUNT(*) FROM users))
 AS avg_post; 
 -- avg post by our users
 
+SELECT tag_name, COUNT(*) AS tag_count FROM photo_tags 
+JOIN tags ON photo_tags.tag_id = tags.id
+GROUP BY tags.id
+ORDER BY tag_count DESC LIMIT 5;
+
+SELECT user_id, COUNT(*) FROM users
+JOIN likes ON likes.user_id = users.id
+GROUP BY user_id
+HAVING COUNT(*) = (SELECT COUNT(*) FROM photos);
